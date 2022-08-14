@@ -46,10 +46,5 @@ export class LambdaEfsMount extends cdk.Stack {
         });
 
         api.root.addMethod("GET", new LambdaIntegration(fnGet));
-
-        const fnPost = new NodejsFunction(this, "fn-Post", {
-            entry: path.resolve(__dirname, "post.lambda.ts"),
-        });
-        api.root.addMethod("POST", new LambdaIntegration(fnGet));
     }
 }
