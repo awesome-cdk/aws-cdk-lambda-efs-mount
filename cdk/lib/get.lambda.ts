@@ -10,6 +10,10 @@ const logFile = '/mnt/request-logs/requests.txt';
 const separator = os.EOL;
 
 export const handler: APIGatewayProxyHandler = async (event) => {
+    if (event.queryStringParameters?.clear) {
+        fs.truncateSync(logFile)
+    }
+
     // Write a new log entry
     fs.appendFileSync(logFile, `Request ID: ${event.requestContext.requestId}, Time: ${event.requestContext.requestTime}` + separator);
 
