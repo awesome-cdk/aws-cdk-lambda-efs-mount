@@ -10,9 +10,10 @@ const logFile = '/mnt/request-logs/requests.txt';
 const separator = os.EOL;
 
 export const handler: APIGatewayProxyHandler = async (event) => {
-    fs.appendFileSync(logFile, event.requestContext.requestId + separator);
+    // Write a new log entry
+    fs.appendFileSync(logFile, `Request ID: ${event.requestContext.requestId}, Time: ${event.requestContext.requestTime}` + separator);
 
-    const rows = fs.readFileSync(logFile).toString().split(separator);
+    const rows = fs.readFileSync(logFile).toString().split(separator).filter(x => !!x);
 
     return {
         statusCode: 200,
